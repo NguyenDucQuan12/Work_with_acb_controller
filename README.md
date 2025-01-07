@@ -1,7 +1,7 @@
 # Hướng dẫn cách lấy dữ liệu từ đầu đọc thẻ `IDTECK` từ bộ điều khiển `ACB-004 Controller`
 # Mục lục
 
-[I. Bối cảnh](#i-bối-cảnhh)
+[I. Bối cảnh](#i-bối-cảnh)
 
 [II. Đầu đọc thẻ IDTECK IP10](#ii-đầu-đọc-thẻ-idteck-ip10)
 - [1. Sản phẩm](#1-sản-phẩm)
