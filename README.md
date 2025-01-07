@@ -200,3 +200,16 @@ Nó sẽ mở ra cửa sổ mới và bạn nhấn vào chức năng `Auto confi
 # IV. Đọc dữ liệu từ bộ điều khiển bằng Python
 
 ## 1. Thư viện uhppoted
+
+![alt text](Image/uhppoted_github.png)
+
+Để kết nối được với bộ điều khiển `ACB-004` ta sử dụng thư viện `Uhppoted`. Có thể tham khảo chi tiết [tại đây](https://github.com/uhppoted/uhppoted-python).  
+Ta cài đặt thư viện này bằng câu lệnh sau:  
+
+```python 
+pip install uhppoted
+```
+
+![alt text](Image/uhppoted_github.png)
+
+Ta đã cài đặt thành công thư viện `uhppoted` trong môi trường ảo. Để tham khảo về cách làm việc với môi trường ảo thì tìm hiểu tại repository [Virtual_enviroment_python](https://github.com/NguyenDucQuan12/virtual_environment_python).  
