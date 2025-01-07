@@ -74,3 +74,19 @@ Bộ điều khiển này có phần mềm riêng để có thể cấu hình b�
 Giải nén nó ra và chạy tệp tin `setup.exe` như hình bên dưới:  
 
 ![alt text](Image/install_access_control.png)
+
+Sau khi cài đặt xong sẽ có một phần mềm tên là `Access Control`. Mở phần mềm đó lên và đăng nhập với thông tin như sau:  
+
+![alt text](Image/login_access_control.png)
+
+> User Name: `abc`  
+> Password: `123`  
+
+Sau khi đăng nhập sẽ vào giao diện chính như sau:  
+
+![alt text](Image/access_control_home_paper.png)
+
+### 1. Kết nối acb-004 với access control
+
+Ta cắm dây ethernet từ `acb-004` vào máy tính.  
+
