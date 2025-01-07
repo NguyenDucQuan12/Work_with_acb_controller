@@ -11,8 +11,9 @@
 - [1. Sản phẩm](#1-sản-phẩm-1)
 - [2. Sơ đồ kết nối](#2-sơ-đồ-kết-nối-1)
 - [3. Phần mềm Access Control](#3-phần-mềm-access-control)
-    - [1. Kết nối ACB-004 với Access Control](#1-kết-nối-acb-004-với-access-control)
-    - [2. Kiểm tra dữ liệu quẹt thẻ](#2-kiểm-tra-dữ-liệu-quẹt-thẻ)
+    - [1. Một số mật khẩu cần lưu ý của phần mềm Access Control](#1-một-số-mật-khẩu-cần-lưu-ý-của-phần-mềm-access-control)
+    - [2. Kết nối ACB-004 với Access Control](#2-kết-nối-acb-004-với-access-control)
+    - [3. Kiểm tra dữ liệu quẹt thẻ](#3-kiểm-tra-dữ-liệu-quẹt-thẻ)
 
 
 # I. Bối cảnh
@@ -81,7 +82,10 @@ Giải nén nó ra và chạy tệp tin `setup.exe` như hình bên dưới:
 
 ![alt text](Image/install_access_control.png)
 
-Sau khi cài đặt xong sẽ có một phần mềm tên là `Access Control`. Mở phần mềm đó lên và đăng nhập với thông tin như sau:  
+Sau khi cài đặt xong sẽ có một phần mềm tên là `Access Control`.  
+
+### 1. Một số mật khẩu cần lưu ý của phần mềm Access Control
+Mở phần mềm đó lên và đăng nhập với thông tin như sau:  
 
 ![alt text](Image/login_access_control.png)
 
@@ -118,7 +122,7 @@ Còn một mật khẩu cuối cùng nữa đấy là tệp tin `ICCard3000: Mic
 
 > Mật khẩu sẽ là: `168168`  
 
-### 1. Kết nối acb-004 với access control
+### 2. Kết nối acb-004 với access control
 
 Ta cắm dây ethernet từ `ACB-004` vào máy tính.  
 
@@ -145,7 +149,7 @@ Như hình ảnh bên trên tôi đã thêm bộ điều khiển `ACB-004` của
 
 Ta chỉ nên thay đổi địa chỉ IP của bộ điều khiển sao cho cùng dải mạng với máy tính là được, các thông số khác để nguyên.  
 
-### 2. Kiểm tra dữ liệu quẹt thẻ
+### 3. Kiểm tra dữ liệu quẹt thẻ
 Để xem thông tin dữ liệu khi quẹt thẻ, ta vào chức năng `Operation` như hình ảnh dưới đây:  
 
 ![alt text](Image/monitoring_swipe_record.png)
