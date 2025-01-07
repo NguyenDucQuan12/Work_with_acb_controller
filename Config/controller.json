@@ -1,0 +1,16 @@
+{
+    "Controller_1":{
+        "S/N": 423138650,
+        "IP_C1": "169.254.184.123",
+        "Port_C1": 60000
+    },
+    "Default":{
+        "host_port": 60001,
+        "bind_addr": "0.0.0.0",
+        "broadcast_addr": "255.255.255.255:60000",
+        "listen_addr": "0.0.0.0:60001"
+    },
+    "IP_Computer":{
+        "IP_computer": "169.254.241.126"
+    }
+}
