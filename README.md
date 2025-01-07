@@ -14,6 +14,13 @@
     - [1. Một số mật khẩu cần lưu ý của phần mềm Access Control](#1-một-số-mật-khẩu-cần-lưu-ý-của-phần-mềm-access-control)
     - [2. Kết nối ACB-004 với Access Control](#2-kết-nối-acb-004-với-access-control)
     - [3. Kiểm tra dữ liệu quẹt thẻ](#3-kiểm-tra-dữ-liệu-quẹt-thẻ)
+- [4. Một số lỗi khi sử dụng ACB-004](#4-một-số-lỗi-khi-sử-dụng-acb-004)
+    - [1. Cách nhận biết lỗi](#1-cách-nhận-biết-lỗi)
+    - [2. Thời gian không khớp với hiện tại](#2-thời-gian-không-khớp-với-hiện-tại)
+    - [3. Không thể xem được chức năng Monitor](#3-không-thể-xem-được-chức-năng-monitor)
+
+[IV. Đọc dữ liệu từ bộ điều khiển bằng Python](#iv-đọc-dữ-liệu-từ-bộ-điều-khiển-bằng-python)
+- [1. Thư viện Uhppoted](#1-thư-viện-uhppoted)
 
 
 # I. Bối cảnh
@@ -96,9 +103,11 @@ Sau khi đăng nhập sẽ vào giao diện chính như sau:
 
 ![alt text](Image/access_control_home_paper.png)
 
-Để sử dụng chức năng `Tool --> Extended Function` ta sử dụng mật khẩu `5678`.  
+Để sử dụng chức năng `Tool --> Extended Function` ta cũng cần cung cấp mật khẩu.  
 
 ![alt text](Image/tool_access_control.png)
+
+> Password: `5678`  
 
 Sau đó mở ra giao diện tool với một số chức năng ta có thể dùng như bên dưới:  
 
@@ -124,12 +133,12 @@ Còn một mật khẩu cuối cùng nữa đấy là tệp tin `ICCard3000: Mic
 
 ### 2. Kết nối acb-004 với access control
 
-Ta cắm dây ethernet từ `ACB-004` vào máy tính.  
+Ta cắm dây ethernet từ cổng TCP/IP của `ACB-004` vào máy tính.  
 
 ![alt text](Image/access_reader_connect.JPG)
 
 Nếu cắm thành công thì ta sẽ thấy đèn màu xanh phía bên phải `cổng TCP/IP` sáng màu. Và khi quẹt thẻ thì đèn màu cam sẽ nhấp nháy báo hiệu đã truyền/nhận tín hiệu.  
-Tiếp theo vào phần mềm `Access Control` và tìm kiếm controller bằng cách dùng chức năng `Add Controller By Searching` nhưu hình ảnh bên dưới:  
+Tiếp theo vào phần mềm `Access Control` và tìm kiếm controller bằng cách dùng chức năng `Add Controller By Searching` như hình ảnh bên dưới:  
 
 ![alt text](Image/add_contronller_by_search.png)
 
@@ -154,5 +163,40 @@ Ta chỉ nên thay đổi địa chỉ IP của bộ điều khiển sao cho cù
 
 ![alt text](Image/monitoring_swipe_record.png)
 
+Ta vào `Operation` sau đó ấn `Select All` để chọn hết các cửa và ấn `Monitor` để quan sát sự kiện quẹt thẻ.  
 Khi đó mỗi khi ta đưa thẻ gần đầu đọc thẻ đủ để nhận tín hiệu thì dữ liệu sẽ được hiển thị tại ô bên dưới. Thông tin sẽ được hiển thị tại cột `Infor`.  
-Như vậy ta đã có thể xác nhận được rằng hệ thống đã hoạt động ổn định, chuyển sang bước tiếp theo là đọc dữ liệu bằng python.  
+Như vậy ta đã có thể xác nhận được rằng hệ thống đã hoạt động ổn định, chuyển sang bước tiếp theo là đọc dữ liệu bằng `python`.  
+
+## 4. Một số lỗi khi sử dụng ACB-004
+### 1. Cách nhận biết lỗi
+Ta có thể nhận biết có lỗi bằng cách quan sát các đèn `LED trên bảng mạch (LED indicator)` của bộ điều khiển như hình dưới đây:  
+
+![alt text](Image/acb_004_controller.png)
+
+Đèn dưới cùng màu đỏ, có tên `ERR` nó sẽ sáng nhẹ hoặc nhấp nháy thì báo hiệu lỗi. Một số lỗi phổ biến mà mình từng gặp dưới đây.  
+
+### 2. Thời gian không khớp với hiện tại
+Đây là lỗi mình thường xuyên gặp nhất (Và nó cũng không ảnh hưởng gì hệ thống cả ngoài thời gian sai), chỉ cần mất điện hoặc nguồn điện không ổn định, khiến cho bộ điều khiển không được cung cấp điện. Sau đó khởi động lại bộ điều khiển thì đèn báo `ERR` sáng lên.  
+
+Cách khắc phục là ta sẽ vào phần mềm `Access Control` để điều chỉnh lại thời gian cho bộ điều khiển.  
+
+![alt text](Image/adjust_time_in_access_control.png)
+
+Ta vào `Operation` sau đó chọn `Select All` để chọn hết cửa và nhấn vào chức năng `Adjust Time` để cập nhật lại thời gian của bộ điều khiển. Nếu thành công nó sẽ báo xanh như vị trí số 3 ở trên.  
+
+### 3. Không thể xem được chức năng Monitor
+Lỗi này khiến khi mình sử dụng chức năng `monitor` sẽ không xem được sự kiện quẹt thẻ. Dấu hiện nhận biết là hình cánh cửa không mở ra và có màu xanh như bình thường. Thay vào đó là nó có hình như dưới đây.  
+
+![alt text](Image/No_information.png)
+
+Để sửa lỗi này thì các bạn cũng tương tự như thời gian. Tuy nhiên các bạn không dùng chức năng `Adjust Time` mà sử dụng chức năng `Check`.  
+
+![alt text](Image/No_information.png)
+
+Nó sẽ mở ra cửa sổ mới và bạn nhấn vào chức năng `Auto configuration ...`. Sau đó nó sẽ tự động sửa lỗi.  
+
+![alt text](Image/No_information.png)
+
+# IV. Đọc dữ liệu từ bộ điều khiển bằng Python
+
+## 1. Thư viện uhppoted
