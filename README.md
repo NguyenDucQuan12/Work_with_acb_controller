@@ -116,3 +116,25 @@ Còn một mật khẩu cuối cùng nữa đấy là tệp tin `ICCard3000: Mic
 
 Ta cắm dây ethernet từ `acb-004` vào máy tính.  
 
+![alt text](Image/access_reader_connect.JPG)
+
+Nếu cắm thành công thì ta sẽ thấy đèn màu xanh phía bên phải `cổng TCP/IP` sáng màu. Và khi quẹt thẻ thì đèn màu cam sẽ nhấp nháy báo hiệu đã truyền/nhận tín hiệu.  
+Tiếp theo vào phần mềm `Access Control` và tìm kiếm controller bằng cách dùng chức năng `Add Controller By Searching` nhưu hình ảnh bên dưới:  
+
+![alt text](Image/add_contronller_by_search.png)
+
+Sau khi thêm bộ điều khiển xong thì bạn vào `Configuration` và chọn `Controller` để xem danh sách các bộ điều khiển đã thêm vào.  
+
+![alt text](Image/add_contronller_success.png)
+
+Như hình ảnh bên trên tôi đã thêm bộ điều khiển `acb-004` của mình thành công. Nó sẽ cho chúng ta một số thông tin về bộ điều khiển mà ta cần lưu ý như sau:  
+
+> SN: Serial number  
+> IP: Địa chỉ IP của controller  
+> Port: Cổng kết nối  
+
+Để chỉnh sửa bộ điều khiển thì ta nhấn đúp vào bộ điều khiển đó.  
+
+![alt text](Image/configuaration_controller.png)
+
+Ta chỉ nên thay đổi địa chỉ IP của bộ điều khiển sao cho cùng dải mạng với máy tính là được, các thông số khác để nguyên.
