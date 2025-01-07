@@ -1,0 +1,13 @@
+# Bỏ qua toàn bộ thư mục môi trường ảo
+.acb_controller/
+
+# Bỏ qua toàn bộ tệp thực thi exe
+*.exe
+
+
+# Nếu tệp tin đã đẩy lên git rồi thì dùng câu lệnh sau xóa nó khỏi cache trước khi thêm nó vào gitignore :
+
+# Cách 1 (xóa tệp tin cụ thể): git rm --cached filename.ext
+# Cách 2 (xóa folder): git rm -r --cached foldername/
+
+# Sau đó sửa lại gitignore và đẩy lên github
