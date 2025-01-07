@@ -51,6 +51,26 @@ Cấp nguồn 12V cho bộ điều khiển ở vị trí `access power supply` t
 > GND: Là nguồn 0V (Cực âm)  
 > +12V: Là nguồn 12V (Cực dương)  
 
+Xem hình ảnh minh họa bên dưới (dây nâu là +12V, dây xanh là 0V)
+
+![alt text](Image/access_power_supply.JPG)
+
 Kết nối với đầu đọc thẻ từ tại 4 vị trí `Access reader` như hướng dẫn trên bảng mạch gồm:  
 
-Bộ điều khiển này có phần mềm riêng để có thể 
+> 12V: Là nguồn 12V cho đầu đọc thẻ (Tương ứng với dây đỏ của IDTECK)  
+> 0V: Là nguồn 0V cho đầu đọc thẻ (Tương ứng với dây đen của IDTECK)  
+> D0: Là Data 0 out (Tương ứng với dây xanh của IDTECK)  
+> D1: Là Data 1 out (Tương ứng với dây trắng của IDTECK)  
+> LED: (Mình không sử dụng nên chưa tìm hiểu nó có chức năng gì)  
+
+Để chi tiết hơn có thể tham khảo cách đấu nối ở hình ảnh bên dưới:  
+
+![alt text](Image/access_reader_connect.JPG)
+
+Mình đang đấu nhầm dây `D0` và `D1` ngược nhau. Tuy nhiên nó vẫn hoạt động tốt, đừng ngược nguồn `12V` và `0V` là được.  
+
+## 2. Phần mềm Access Control
+Bộ điều khiển này có phần mềm riêng để có thể cấu hình bộ điều khiển cũng như kiểm tra các tác vụ liên quan đến bộ điều khiển. Tải phần mềm về [tại đây](Setup/Software-ACB-001-002-004.rar).  
+Giải nén nó ra và chạy tệp tin `setup.exe` như hình bên dưới:  
+
+![alt text](Image/install_access_control.png)
