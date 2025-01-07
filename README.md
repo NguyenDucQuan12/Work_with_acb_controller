@@ -86,6 +86,32 @@ Sau khi đăng nhập sẽ vào giao diện chính như sau:
 
 ![alt text](Image/access_control_home_paper.png)
 
+Để sử dụng chức năng `Tool --> Extended Function` ta sử dụng mật khẩu `5678`.  
+
+![alt text](Image/tool_access_control.png)
+
+Sau đó mở ra giao diện tool với một số chức năng ta có thể dùng như bên dưới:  
+
+![alt text](Image/extended_function.png)
+
+Mặc định khi tải về thì phần mềm chỉ được dùng thử. Sau khi hết hạn bạn sẽ không thể truy cập được nữa. Ta sẽ đăng ký bằng cách vào `Help --> About --> Register` dựa trên một số thông tin sau:  
+
+![alt text](Image/register_access_control.png)
+
+> Company Nam: `s4a`  
+> Building Company: `s4a`  
+> Register Code: `2004`  
+
+Như vậy chỉ cần ấn nút `OK` để khởi động lại chương trình là đã đăng ký thành công.  
+
+![alt text](Image/register_access_control_success.png)
+
+Còn một mật khẩu cuối cùng nữa đấy là tệp tin `ICCard3000: Microsoft Access Database (.mdb)` để xem dữ liệu.  
+
+![alt text](Image/iCCard300_password.png)
+
+> Mật khẩu sẽ là: `168168`  
+
 ### 1. Kết nối acb-004 với access control
 
 Ta cắm dây ethernet từ `acb-004` vào máy tính.  
