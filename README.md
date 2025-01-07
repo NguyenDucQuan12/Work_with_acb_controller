@@ -9,7 +9,8 @@
 
 [III. Bộ điều khiển ACB-004](#iii-bộ-điều-khiển-acb---004)
 - [1. Sản phẩm](#1-sản-phẩm-1)
-- [2. Phần mềm Access Control](#2-phần-mềm-access-control)
+- [2. Sơ đồ kết nối](#2-sơ-đồ-kết-nối-1)
+- [3. Phần mềm Access Control](#3-phần-mềm-access-control)
     - [1. Kết nối ACB-004 với Access Control](#1-kết-nối-acb-004-với-access-control)
     - [2. Kiểm tra dữ liệu quẹt thẻ](#2-kiểm-tra-dữ-liệu-quẹt-thẻ)
 
@@ -44,13 +45,13 @@ Ta cần có nguồn 12V để cung cấp cho đầu đọc thẻ này, tuy nhi�
 
 # III. Bộ điều khiển ACB - 004
 ## 1. Sản phẩm
-
 Để đọc được dữ liệu từ bộ điều khiển thì tôi lựa chọn bộ điều khiển `acb-004` để lấy dữ liệu.  
 
 ![alt text](Image/acb_004_controller.png)
 
 Nó có thể kết nối tới 4 đầu đọc thẻ cùng 1 lúc. Ta kết nối nó như sau.  
 
+## 2. Sơ đồ kết nối
 Cấp nguồn 12V cho bộ điều khiển ở vị trí `access power supply` ta tiến hành đấu nối dây như hướng dẫn trên bảng mạch gồm:  
 
 > GND: Là nguồn 0V (Cực âm)  
@@ -74,7 +75,7 @@ Kết nối với đầu đọc thẻ từ tại 4 vị trí `Access reader` nh�
 
 Mình đang đấu nhầm dây `D0` và `D1` ngược nhau. Tuy nhiên nó vẫn hoạt động tốt, đừng ngược nguồn `12V` và `0V` là được.  
 
-## 2. Phần mềm Access Control
+## 3. Phần mềm Access Control
 Bộ điều khiển này có phần mềm riêng để có thể cấu hình bộ điều khiển cũng như kiểm tra các tác vụ liên quan đến bộ điều khiển. Tải phần mềm về [tại đây](Setup/Software-ACB-001-002-004.rar).  
 Giải nén nó ra và chạy tệp tin `setup.exe` như hình bên dưới:  
 
