@@ -5,10 +5,14 @@
 
 [II. Đầu đọc thẻ IDTECK IP10](#ii-đầu-đọc-thẻ-idteck-ip10)
 - [1. Sản phẩm](#1-sản-phẩm)
-  - [1. Kết nối bằng cáp USB-A](#1-Kết-nối-bằng-cáp-usb---a)
-  - [2. Kết nối bằng ethernet](#2-Kết-nối-bằng-ethernet)
+- [2. Sơ đồ kết nối](#2-sơ-đồ-kết-nối)
 
 [III. Bộ điều khiển ACB-004](#iii-bộ-điều-khiển-acb---004)
+- [1. Sản phẩm](#1-sản-phẩm-1)
+- [2. Phần mềm Access Control](#2-phần-mềm-access-control)
+    - [1. Kết nối ACB-004 với Access Control](#1-kết-nối-acb-004-với-access-control)
+    - [2. Kiểm tra dữ liệu quẹt thẻ](#2-kiểm-tra-dữ-liệu-quẹt-thẻ)
+
 
 # I. Bối cảnh
 
@@ -23,6 +27,7 @@ Tôi cần biết được một số thông tin mỗi khi có người quẹt t
 
 ![alt text](Image/IDTECK_IP10.JPG)
 
+## 2. Sơ đồ kết nối
 Ta có sơ đồ kết nối của đầu đọc thẻ như sau:  
 
 ![alt text](Image/connection_diagram_idteck.png)
