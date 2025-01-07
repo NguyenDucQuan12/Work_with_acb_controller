@@ -14,6 +14,8 @@
 
 Tôi cần biết được một số thông tin mỗi khi có người quẹt thẻ từ vào đầu đọc thẻ từ.  
 
+![alt text](Image/swipe_card_reader.jpg)
+
 # II. Đầu đọc thẻ IDTECK IP10
 ## 1. Sản phẩm
 
