@@ -38,3 +38,19 @@ Ta chỉ phục vụ mục đích lấy dữ liệu mỗi khi có người quẹ
 Ta cần có nguồn 12V để cung cấp cho đầu đọc thẻ này, tuy nhiên bộ điều khiển `acb-004` có sẵn nguồn 12V nên ta không cần kết nối nguồn khác nữa.  
 
 # III. Bộ điều khiển ACB - 004
+## 1. Sản phẩm
+
+Để đọc được dữ liệu từ bộ điều khiển thì tôi lựa chọn bộ điều khiển `acb-004` để lấy dữ liệu.  
+
+![alt text](Image/acb_004_controller.png)
+
+Nó có thể kết nối tới 4 đầu đọc thẻ cùng 1 lúc. Ta kết nối nó như sau.  
+
+Cấp nguồn 12V cho bộ điều khiển ở vị trí `access power supply` ta tiến hành đấu nối dây như hướng dẫn trên bảng mạch gồm:  
+
+> GND: Là nguồn 0V (Cực âm)  
+> +12V: Là nguồn 12V (Cực dương)  
+
+Kết nối với đầu đọc thẻ từ tại 4 vị trí `Access reader` như hướng dẫn trên bảng mạch gồm:  
+
+Bộ điều khiển này có phần mềm riêng để có thể 
