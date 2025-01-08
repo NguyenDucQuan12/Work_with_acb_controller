@@ -210,7 +210,7 @@ Ta cài đặt thư viện này bằng câu lệnh sau:
 pip install uhppoted
 ```
 
-![alt text](Image/uhppoted_github.png)
+![alt text](Image/install_uhppoted_using_pip.png)
 
 Ta đã cài đặt thành công thư viện `uhppoted` trong môi trường ảo. Để tham khảo về cách làm việc với môi trường ảo thì tìm hiểu tại repository [Virtual_enviroment_python](https://github.com/NguyenDucQuan12/virtual_environment_python).  
 
