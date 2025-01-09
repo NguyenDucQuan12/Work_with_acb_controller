@@ -76,9 +76,12 @@ class Controller:
 
     def disconnect_controller(self):
         """
-        Ngắt kết nối tới Controller
+        Dừng luồng lắng nghe an toàn.
         """
-        self.controller_connected = False
+        if self.listener_thread.is_alive():
+            self.controller_connected = False  # Dừng vòng lặp trong luồng listen
+            self.uhppote_instance._udp.close()  # Đóng socket trong lớp UDP
+            self.listener_thread.join()  # Đợi luồng dừng hoàn toàn
 
     def set_listener(self, u, controller, address, port):
         """
@@ -246,6 +249,9 @@ class App:
 
     def disconnect_controller(self):
         self.controller.disconnect_controller()
+        self.information_label.config(text=f"✔ Đã ngắt kết nối tới bộ điều khiển", fg="green")
+        self.connect_button.config(bg="white", state="normal")
+        self.disconnect_button.config(bg="gray", state="disable")
 
 if __name__ == '__main__':
     app = App()
