@@ -64,6 +64,9 @@ Ta cần có nguồn 12V để cung cấp cho đầu đọc thẻ này, tuy nhi�
 Nó có thể kết nối tới 4 đầu đọc thẻ cùng 1 lúc. Ta kết nối nó như sau.  
 
 ## 2. Sơ đồ kết nối
+
+![alt text](Image/connection_diagram_acb.png)
+
 Cấp nguồn 12V cho bộ điều khiển ở vị trí `access power supply` ta tiến hành đấu nối dây như hướng dẫn trên bảng mạch gồm:  
 
 > GND: Là nguồn 0V (Cực âm)  
