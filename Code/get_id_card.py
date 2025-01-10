@@ -1,20 +1,14 @@
 import ipaddress
-import logging
 import queue
 import socket
 from uhppoted import uhppote
 import threading
-from pprint import pprint
 import time
-# from gui.semaphore_module import semaphore
-import json
 
 # Cắm 2 dây ethernet vào cùng 1 máy tính sẽ gây ra hiện tượng timeout khi cố gắng kết nối đến controller
 # Vì vậy hãy cắm tất cả vào 1 switch và lấy duy nhất 1 dây ethernet cắm vào máy tính
-logger = logging.getLogger(__name__)
 MY_HOSTNAME = socket.gethostname() # Tên laptop
 MY_IP_ADDR = socket.gethostbyname(MY_HOSTNAME) # Địa chỉ IPV4
-json_filename = "src/controller/controller.json"
 
 class Person():
     
@@ -37,19 +31,15 @@ class Person():
     get_id_card: Lấy ra giá trị thẻ của người vừa quẹt để có thể phân tích, lưu trữ, hiển thị, ...
     """
     
-    def __init__(self, controller= None, host_addr = None, function=None):
+    def __init__(self, function=None):
         
-        # Lấy các thông số về bộ điều khiển acb-004, default là giá trị mặc định, không thay đổi
-        with open(json_filename, 'r') as inside:
-            data = json.load(inside)
-            controller = data['Controller_1']['S/N']
-            # host_addr = data['IP_Computer']['IP_computer']
-            host_port = data['Default']['host_port'] 
-            bind_addr = data['Default']['bind_addr']
-            broadcast_addr = data['Default']['broadcast_addr']
-            listen_addr = data['Default']['listen_addr']
-            
+        controller = 423138650  # controller serial number
+        host_port = 60001  # port on which to listen for events\
         host_addr = ipaddress.IPv4Address(MY_IP_ADDR) # Định dạng ip máy tính
+
+        bind_addr = '0.0.0.0'  # either INADDR_ANY (0.0.0.0) or the host IPv4 address
+        broadcast_addr = '255.255.255.255:60000'  # either the broadcast address for INADDR_ANY or the host IP broadcast address
+        listen_addr = f'0.0.0.0:{host_port}'  # either INADDR_ANY (0.0.0.0) or the host IP IPv4 address
         debug = False
         
         # Tạo hàng đợi để lưu giá trị của thẻ từ 
@@ -78,11 +68,10 @@ class Person():
     def set_listener(self, u, controller, address, port):
         try:
             response = u.set_listener(controller, address, port)
-            logger.info(response)
             self.controller_connected = True
         except Exception as e:
             # Khi có tham số exc_info thì nó sẽ hiển thị chi tiết lỗi xảy ra
-            logger.error(f"Lỗi khi kết nối tới controller: {e}", exc_info=True)
+            print(f"Lỗi khi kết nối tới controller: {e}", exc_info=True)
              
     # Lắng nghe sự kiện quẹt thẻ
     def listen(self, u):
@@ -91,13 +80,12 @@ class Person():
     # Xử lý sự kiện với hàng đợi
     def onEvent(self, event):
         # Thêm sự kiện quẹt thẻ vào hàng đợi
-        # Mỗi khi quẹt thẻ sẽ mở CSDL và thực hiện thao tác ghi vào CSDL, nếu quẹt thẻ quá nhanh thì nó sẽ gây ra xung đột giữa các cursor cảu SQL Server
+        # Mỗi khi quẹt thẻ sẽ mở CSDL và thực hiện thao tác ghi vào CSDL, nếu quẹt thẻ quá nhanh thì nó sẽ gây ra xung đột giữa các cursor của SQL Server
         # Vì vậy cần cho vào hàng đợi để có thể xử lý lần lượt, ko gây ra xung đột
         if event:
             if self.event_queue.qsize() >= self.max_queue_size:
-                logger.warning('Phát hiện cố tình quẹt thẻ nhanh: id quẹt thẻ %s', event.event_card)
+                print('Phát hiện cố tình quẹt thẻ nhanh: id quẹt thẻ %s', event.event_card)
             else:
-                logger.info('Quẹt thẻ hợp lệ: id quẹt thẻ %s', event.event_card)
                 self.event_queue.put(event)
                 
     # Hàm này xử lý sự kiện sau khi quẹt thẻ
@@ -113,7 +101,7 @@ class Person():
                     # print(threading.enumerate())
                 except Exception as e:
                     # Khi có tham số exc_info thì nó sẽ hiển thị chi tiết lỗi xảy ra
-                    logger.warning(f"Lỗi khi xử lý sự kiện quẹt thẻ: {e}", exc_info=True)
+                    print(f"Lỗi khi xử lý sự kiện quẹt thẻ: {e}", exc_info=True)
                 finally:
                     self.event_queue.task_done()
             else:
@@ -147,8 +135,12 @@ class Person():
     # Lấy giá trị id thẻ (dãy số nằm phía sau thẻ nhân viên)
     def get_id_card(self):
         return self.id_card
+    
+    
+def display(id_card):
+    print(f"{id_card} đã quẹt thẻ")
 
 if __name__ == '__main__':
-    person = Person()
-    for i in range(20):
-        time.sleep(1)
+    person = Person(function= display)
+    while True:
+        pass
