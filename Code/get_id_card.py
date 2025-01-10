@@ -1,6 +1,7 @@
 import ipaddress
 import queue
 import socket
+import pprint
 from uhppoted import uhppote
 import threading
 import time
@@ -94,11 +95,9 @@ class Person():
             if not self.event_queue.empty():
                 event = self.event_queue.get()
                 try:
-                    self.function(event.event_card)
+                    self.function(event)
                     with self.lock:
                         self.id_card = event.event_card
-                    # print("Số luồng sau khi quẹt thẻ:", threading.active_count())
-                    # print(threading.enumerate())
                 except Exception as e:
                     # Khi có tham số exc_info thì nó sẽ hiển thị chi tiết lỗi xảy ra
                     print(f"Lỗi khi xử lý sự kiện quẹt thẻ: {e}", exc_info=True)
@@ -136,9 +135,10 @@ class Person():
     def get_id_card(self):
         return self.id_card
     
-    
-def display(id_card):
-    print(f"{id_card} đã quẹt thẻ")
+
+def display(event):
+    print(f"{event.event_card} đã quẹt thẻ với thông tin: ")
+    pprint.pprint(event.__dict__, indent=2, width=1)
 
 if __name__ == '__main__':
     person = Person(function= display)
