@@ -5,6 +5,8 @@
 # Bỏ qua toàn bộ tệp thực thi exe
 *.exe
 
+# Bỏ qua tệp tin visual studio code
+.vscode/
 
 # Nếu tệp tin đã đẩy lên git rồi thì dùng câu lệnh sau xóa nó khỏi cache trước khi thêm nó vào gitignore :
 

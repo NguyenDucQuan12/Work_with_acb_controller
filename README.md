@@ -215,4 +215,164 @@ pip install uhppoted
 Ta đã cài đặt thành công thư viện `uhppoted` trong môi trường ảo. Để tham khảo về cách làm việc với môi trường ảo thì tìm hiểu tại repository [Virtual_enviroment_python](https://github.com/NguyenDucQuan12/virtual_environment_python).  
 
 ## 2. Kết nối với bộ điều khiển ACB-004 bằng python
+### 1. Một số thông số mặc định
 
+```
+bind        IPv4 address to which to bind the UDP socket. Defaults to 0.0.0.0
+broadcast   IPv4 address:port for broadcast UDP packets. Defaults to 255.255.255.255:60000
+listen      IPv4 address:port for events from controller (unused). Defaults to 0.0.0.0:60001
+debug       Displays the controller requests/responses if true.
+```
+> Bind: Địa chỉ 0.0.0.0 có nghĩa là socket sẽ lắng nghe trên tất cả các giao diện mạng của máy tính. Nếu muốn lắng nghe trên một giao diện mạng cụ thể thì đặt giá trị này thành giá trị IP cụ thể (192.168.1.100)  
+> Broadcast: 255.255.255.255 là địa chỉ broadcast chuẩn, nghĩa là gói tin sẽ được gửi tới tất cả các thiết bị trong cùng một mạng. Thông thường, broadcast được dùng để thông báo thông tin cho tất cả các thiết bị trong mạng mà không cần biết trước địa chỉ IP cụ thể của chúng.  
+> Listen: Tương tự như bind, 0.0.0.0 ở đây cho phép socket lắng nghe sự kiện từ tất cả các giao diện mạng. Mặc dù thông số này "unused" (không sử dụng), nhưng vẫn được cấu hình để phù hợp với các thiết lập giao tiếp mạng tiềm năng.  
+> Debug: Khi bật debug (giá trị true), các thông báo liên quan đến việc gửi/nhận dữ liệu từ controller sẽ được hiển thị trên màn hình. Khi giá trị là false, các thông báo này sẽ bị tắt để tránh gây nhiễu khi chạy trong môi trường thực tế.  
+
+### 2. Lấy thông tin về bộ điều khiển
+
+Để truy cập thông tin đến bộ điều khiển `ACB Controller` ta tạo kết nối đến server và sử dụng hàm `get_controller` để lấy thông tin.  
+Sử dụng 1 trong 5 phương thức để lấy thông tin bộ điều khiển như sau:  
+```python
+get_controller(serial_number)
+get_controller((serial_number, 'IP', 'tcp'))
+get_controller((serial_number, 'IP:60000', 'tcp'))
+get_controller((serial_number, 'IP'))
+get_controller((serial_number, 'IP:60000'))
+```
+
+Ví dụ về sử dụng phương thức 1 hoặc 2 như bên dưới:  
+
+```python 
+from uhppoted import uhppote
+from pprint import pprint
+
+bind = '0.0.0.0'
+broadcast = '255.255.255.255:60000'
+listen = '0.0.0.0:60001'
+debug = True
+
+u = uhppote.Uhppote(bind, broadcast, listen, debug)
+# Lấy thông tin bộ điều khiển bằng serial number
+record = u.get_controller(423138650)
+
+# Lấy thông tin controller bằng serial number, ip:port, phương thức TCP
+record = u.get_controller((423138650, '169.254.184.123:60000', 'tcp'))
+
+pprint(record.__dict__, indent=2, width=1)
+```
+Kết quả trả về như sau:  
+
+```console
+   00000000  17 94 00 00 5a 95 38 19  00 00 00 00 00 00 00 00
+   00000010  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+   00000020  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+   00000030  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+
+   00000000  17 94 00 00 5a 95 38 19  a9 fe b8 7b ff ff 00 00
+   00000010  a9 fe b8 01 00 66 19 38  95 5a 06 62 20 15 12 15
+   00000020  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+   00000030  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+
+{ 'controller': 423138650,
+  'date': datetime.date(2015, 12, 15),
+  'gateway': IPv4Address('169.254.184.1'),
+  'ip_address': IPv4Address('169.254.184.123'),
+  'mac_address': '00:66:19:38:95:5a',
+  'subnet_mask': IPv4Address('255.255.0.0'),
+  'version': 'v6.62'}
+```
+
+Nếu đặt `Debug = False` thì kết quả trả về như sau:  
+
+```
+{ 'controller': 423138650,
+  'date': datetime.date(2015, 12, 15),
+  'gateway': IPv4Address('169.254.184.1'),
+  'ip_address': IPv4Address('169.254.184.123'),
+  'mac_address': '00:66:19:38:95:5a',
+  'subnet_mask': IPv4Address('255.255.0.0'),
+  'version': 'v6.62'}
+```
+
+Để lấy hết thông tin của các bộ điều khiển đang kết nối cùng một mạng ta sử dụng hàm `get_all_controllers`:  
+
+```python
+from uhppoted import uhppote
+
+bind = '0.0.0.0'
+broadcast = '255.255.255.255:60000'
+listen = '0.0.0.0:60001'
+debug = False
+
+u = uhppote.Uhppote(bind, broadcast, listen, debug)
+record = u.get_all_controllers()
+
+for i, rec in enumerate(record):
+    print(rec.__dict__)
+```
+
+Có một số cách để hiển thị thông tin bộ điều khiển:  
+
+Ta hiển thị từng giá trị cụ thể:  
+```python
+# Hiển thị từng giá trị cụ thể
+print("Controller:", record[0].controller)
+print("Date:", record[0].date)
+print("Gateway:", record[0].gateway)
+print("IP Address:", record[0].ip_address)
+print("MAC Address:", record[0].mac_address)
+print("Subnet Mask:", record[0].subnet_mask)
+print("Version:", record[0].version)
+```
+Nếu đối tượng là một class hoặc instance, bạn có thể dùng vars() hoặc __dict__ để hiển thị toàn bộ thuộc tính:  
+
+```python
+print(record[0].__dict__)
+# Hoặc dùng vars
+# Hiển thị tất cả thuộc tính của object đầu tiên trong record
+print(vars(record[0]))
+```
+Hoặc có thể sử dụng thư viện `pprint` để hiển thị dữ liệu có cấu trúc đẹp hơn:  
+
+```python 
+# Hoặc từng object trong danh sách
+for rec in record:
+    pprint(vars(rec))
+```
+Kết quả như sau:  
+```
+{ 'controller': 423138650,
+  'date': datetime.date(2015, 12, 15),
+  'gateway': IPv4Address('169.254.184.1'),
+  'ip_address': IPv4Address('169.254.184.123'),
+  'mac_address': '00:66:19:38:95:5a',
+  'subnet_mask': IPv4Address('255.255.0.0'),
+  'version': 'v6.62'}
+```
+
+### 3. Lấy dữ liệu khi quẹt thẻ
+
+Thẻ mà ta sử dụng gọi là `RFID Proximity`. Nó thường có 2 dãy số là `Mã Wiegand` và `Mã ABA`.  
+
+![alt text](Image/my_id_card.JPG)
+
+> Mã Wiegand:  
+> Vị trí: Thường được in bên trái bề mặt thẻ.  
+> Cấu trúc: Gồm 10 chữ số, trong đó 5 số đầu là `Site code (mã địa điểm)` và 5 số sau là `Card code (mã thẻ)`.  
+> Ý nghĩa: Site code xác định địa điểm hoặc hệ thống mà thẻ được đăng ký, còn Card code là mã duy nhất của thẻ trong hệ thống đó  
+> Mã ABA:  
+> Vị trí: Thường được in bên phải bề mặt thẻ.  
+> Cấu trúc: Gồm 10 chữ số, được chuyển đổi từ mã Wiegand theo công thức: `Site code * 65536 + Card code = ABA code`.  
+> Ý nghĩa: Mã ABA là một dạng mã hóa khác của mã Wiegand, giúp hệ thống dễ dàng quản lý và xác thực thông tin thẻ  
+
+Như hình ảnh phía trên thì `mã wiegand` là: `09301223` còn `mã aba` là: `0006096071`.  
+Chương trình của chúng ta chỉ đọc được `9301223` bởi vì nó truyền thông tin tin hiệu `26 bit wiegand`. Từ đó ta suy luận ra mã aba là ` 93*65536 + 1223 = 6096071`.  
+
+Để lấy dữ liệu id code của thẻ từ thì các bạn chạy file code tại tệp [get_id_card.py](Code/get_id_card.py).  
+Chỉ cần thay đổi giá trị `Serrial Number` của thiết bị `ACB Controller` của các bạn cho phù hợp là được.  
+
+```python
+ def __init__(self, function=None):
+        
+        controller = 423138650  # controller serial number
+```
