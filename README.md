@@ -21,6 +21,10 @@
 
 [IV. Đọc dữ liệu từ bộ điều khiển bằng Python](#iv-đọc-dữ-liệu-từ-bộ-điều-khiển-bằng-python)
 - [1. Thư viện Uhppoted](#1-thư-viện-uhppoted)
+- [2. Kết nối với bộ điều khiển ACB 004 bằng Python](#2-kết-nối-với-bộ-điều-khiển-acb-004-bằng-python)
+    - [1. Một số thông số mặc định](#1-một-số-thông-số-mặc-định)
+    - [2. Lấy thông tin về bộ điều khiển](#2-lấy-thông-tin-về-bộ-điều-khiển)
+    - [3. Lấy dữ liệu khi quẹt thẻ](#3-lấy-dữ-liệu-khi-quẹt-thẻ)
 
 
 # I. Bối cảnh
@@ -223,10 +227,10 @@ broadcast   IPv4 address:port for broadcast UDP packets. Defaults to 255.255.255
 listen      IPv4 address:port for events from controller (unused). Defaults to 0.0.0.0:60001
 debug       Displays the controller requests/responses if true.
 ```
-> Bind: Địa chỉ 0.0.0.0 có nghĩa là socket sẽ lắng nghe trên tất cả các giao diện mạng của máy tính. Nếu muốn lắng nghe trên một giao diện mạng cụ thể thì đặt giá trị này thành giá trị IP cụ thể (192.168.1.100)  
-> Broadcast: 255.255.255.255 là địa chỉ broadcast chuẩn, nghĩa là gói tin sẽ được gửi tới tất cả các thiết bị trong cùng một mạng. Thông thường, broadcast được dùng để thông báo thông tin cho tất cả các thiết bị trong mạng mà không cần biết trước địa chỉ IP cụ thể của chúng.  
-> Listen: Tương tự như bind, 0.0.0.0 ở đây cho phép socket lắng nghe sự kiện từ tất cả các giao diện mạng. Mặc dù thông số này "unused" (không sử dụng), nhưng vẫn được cấu hình để phù hợp với các thiết lập giao tiếp mạng tiềm năng.  
-> Debug: Khi bật debug (giá trị true), các thông báo liên quan đến việc gửi/nhận dữ liệu từ controller sẽ được hiển thị trên màn hình. Khi giá trị là false, các thông báo này sẽ bị tắt để tránh gây nhiễu khi chạy trong môi trường thực tế.  
+> `Bind`: Địa chỉ 0.0.0.0 có nghĩa là socket sẽ lắng nghe trên tất cả các giao diện mạng của máy tính. Nếu muốn lắng nghe trên một giao diện mạng cụ thể thì đặt giá trị này thành giá trị IP cụ thể (192.168.1.100)  
+> `Broadcast`: 255.255.255.255 là địa chỉ broadcast chuẩn, nghĩa là gói tin sẽ được gửi tới tất cả các thiết bị trong cùng một mạng. Thông thường, broadcast được dùng để thông báo thông tin cho tất cả các thiết bị trong mạng mà không cần biết trước địa chỉ IP cụ thể của chúng.  
+> `Listen`: Tương tự như bind, 0.0.0.0 ở đây cho phép socket lắng nghe sự kiện từ tất cả các giao diện mạng. Mặc dù thông số này "unused" (không sử dụng), nhưng vẫn được cấu hình để phù hợp với các thiết lập giao tiếp mạng tiềm năng.  
+> `Debug`: Khi bật debug (giá trị true), các thông báo liên quan đến việc gửi/nhận dữ liệu từ controller sẽ được hiển thị trên màn hình. Khi giá trị là false, các thông báo này sẽ bị tắt để tránh gây nhiễu khi chạy trong môi trường thực tế.  
 
 ### 2. Lấy thông tin về bộ điều khiển
 
@@ -337,7 +341,7 @@ Hoặc có thể sử dụng thư viện `pprint` để hiển thị dữ liệu
 ```python 
 # Hoặc từng object trong danh sách
 for rec in record:
-    pprint(vars(rec))
+    pprint(rec.__dict__)
 ```
 Kết quả như sau:  
 ```
@@ -365,8 +369,8 @@ Thẻ mà ta sử dụng gọi là `RFID Proximity`. Nó thường có 2 dãy s�
 > Cấu trúc: Gồm 10 chữ số, được chuyển đổi từ mã Wiegand theo công thức: `Site code * 65536 + Card code = ABA code`.  
 > Ý nghĩa: Mã ABA là một dạng mã hóa khác của mã Wiegand, giúp hệ thống dễ dàng quản lý và xác thực thông tin thẻ  
 
-Như hình ảnh phía trên thì `mã wiegand` là: `09301223` còn `mã aba` là: `0006096071`.  
-Chương trình của chúng ta chỉ đọc được `9301223` bởi vì nó truyền thông tin tin hiệu `26 bit wiegand`. Từ đó ta suy luận ra mã aba là ` 93*65536 + 1223 = 6096071`.  
+Như hình ảnh phía trên thì `mã wiegand` là: `09301223` còn `mã aba` là: `0006096071` (Hơi ngược so với thông tin cung cấp).  
+Chương trình của chúng ta chỉ đọc được `9301223` bởi vì nó truyền thông tin tin hiệu `26 bit wiegand` vì vậy đây là `Mã Wiegand`. Từ đó ta suy luận ra `Mã ABA` là ` 93*65536 + 1223 = 6096071`.  
 
 Để lấy dữ liệu id code của thẻ từ thì các bạn chạy file code tại tệp [get_id_card.py](Code/get_id_card.py).  
 Chỉ cần thay đổi giá trị `Serrial Number` của thiết bị `ACB Controller` của các bạn cho phù hợp là được.  
